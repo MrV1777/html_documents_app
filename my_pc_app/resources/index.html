@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <title>ระบบจัดการข้อมูล</title>
+    <title>ระบบจัดการเอกสาร</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -71,7 +71,7 @@
 
         .form-group { margin-bottom: 18px; }
         label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.95rem; }
-        input[type="text"], input[type="date"], input[type="file"] {
+        input[type="text"], input[type="date"], input[type="file"], input[type="tel"] {
             width: 100%; padding: 12px; border: 1px solid var(--border);
             border-radius: 8px; outline: none; transition: border-color 0.2s; font-size: 1rem;
         }
@@ -101,16 +101,11 @@
             text-align: center; transition: transform 0.2s; position: relative;
         }
         .user-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        .user-card img {
-            width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
-            margin-bottom: 15px; border: 4px solid #eff6ff; background: #e2e8f0;
-        }
         .user-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--text); }
         .user-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 5px; }
         
         .empty-state { text-align: center; padding: 60px; color: var(--text-light); width: 100%; font-size: 1.1rem; }
 
-        /* สำหรับหน้าต่าง Edit Modal */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.6); z-index: 100;
@@ -130,12 +125,12 @@
     </div>
 
     <div class="main-content">
-        <!-- หน้าที่ 1: ฟอร์มกรอกข้อมูลใหม่ -->
         <div id="registerPage" class="page active">
             <div class="card">
                 <h1>สร้างประวัติใหม่</h1>
                 <div class="form-group"><label>ชื่อจริง:</label><input type="text" id="firstName" placeholder="กรอกชื่อจริง"></div>
                 <div class="form-group"><label>นามสกุล:</label><input type="text" id="lastName" placeholder="กรอกนามสกุล"></div>
+                <div class="form-group"><label>เบอร์มือถือ:</label><input type="tel" id="phone" placeholder="กรอกเบอร์มือถือ (เช่น 0812345678)" maxlength="10"></div>
                 <div class="form-group"><label>วัน/เดือน/ปีเกิด:</label><input type="date" id="dob"></div>
                 <div class="form-group">
                     <label>อัปโหลดรูปภาพประจำตัว:</label>
@@ -148,14 +143,12 @@
             </div>
         </div>
 
-        <!-- หน้าที่ 2: ดูข้อมูล -->
         <div id="viewPage" class="page">
             <h1 style="max-width: 1100px; margin: 0 auto 25px;">รายชื่อที่บันทึกไว้ในระบบ</h1>
             <div id="dataGrid" class="data-grid"></div>
         </div>
     </div>
 
-    <!-- หน้าต่างป๊อปอัปสำหรับแก้ไขข้อมูล (Modal) -->
     <div id="editModal" class="modal-overlay">
         <div class="card" style="width: 100%; max-height: 90vh; overflow-y: auto;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -168,6 +161,7 @@
             
             <div class="form-group"><label>ชื่อจริง:</label><input type="text" id="editFirstName"></div>
             <div class="form-group"><label>นามสกุล:</label><input type="text" id="editLastName"></div>
+            <div class="form-group"><label>เบอร์มือถือ:</label><input type="tel" id="editPhone" maxlength="10"></div>
             <div class="form-group"><label>วัน/เดือน/ปีเกิด:</label><input type="date" id="editDob"></div>
             <div class="form-group">
                 <label>เปลี่ยนรูปภาพ (ปล่อยว่างถ้าจะใช้รูปเดิม):</label>
@@ -180,7 +174,6 @@
         </div>
     </div>
 
-    <!-- โหลด Neutralino API -->
     <script src="/js/neutralino.js"></script>
     <script>
         Neutralino.init();
@@ -208,7 +201,6 @@
             if(pageId === 'viewPage') { currentPage = 1; loadData(); }
         }
 
-        // อ่านไฟล์รูป (โหมดสร้างใหม่)
         document.getElementById('imageUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -227,13 +219,13 @@
             }
         });
 
-        // บันทึกสร้างใหม่
         document.getElementById('saveBtn').addEventListener('click', async function() {
             const fName = document.getElementById('firstName').value.trim();
             const lName = document.getElementById('lastName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
             const dob = document.getElementById('dob').value;
-            if(!fName || !lName || !dob) {
-                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน!', 'OK', 'WARNING'); return;
+            if(!fName || !lName || !phone || !dob) {
+                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน รวมถึงเบอร์มือถือด้วยครับ!', 'OK', 'WARNING'); return;
             }
             this.innerText = "กำลังบันทึก..."; this.disabled = true;
 
@@ -245,7 +237,7 @@
                     await Neutralino.filesystem.writeBinaryFile(IMG_FOLDER + '/' + savedImageName, selectedFileBuffer);
                 }
 
-                const newUser = { id: Date.now(), firstName: fName, lastName: lName, dateOfBirth: dob, imageFile: savedImageName };
+                const newUser = { id: Date.now(), firstName: fName, lastName: lName, phone: phone, dateOfBirth: dob, imageFile: savedImageName };
                 let allUsers = [];
                 try {
                     let fileData = await Neutralino.filesystem.readFile(DATA_FILE);
@@ -257,7 +249,8 @@
                 await Neutralino.os.showMessageBox('สำเร็จ', 'บันทึกข้อมูลเรียบร้อยแล้ว!', 'OK', 'INFO');
                 
                 document.getElementById('firstName').value = ''; document.getElementById('lastName').value = '';
-                document.getElementById('dob').value = ''; document.getElementById('imageUpload').value = '';
+                document.getElementById('phone').value = ''; document.getElementById('dob').value = '';
+                document.getElementById('imageUpload').value = '';
                 document.getElementById('imagePreview').style.display = 'none'; document.getElementById('previewText').style.display = 'block';
                 selectedFileBuffer = null; selectedFileExtension = '';
             } catch(e) {
@@ -267,11 +260,6 @@
             }
         });
 
-        // ----------------------------------------------------
-        // ส่วนของระบบ "แก้ไขข้อมูล" (Edit Mode)
-        // ----------------------------------------------------
-
-        // เปิดหน้าต่าง Modal แก้ไข
         window.openEditModal = async function(id) {
             const user = allUsersData.find(u => u.id === id);
             if(!user) return;
@@ -279,14 +267,13 @@
             document.getElementById('editId').value = user.id;
             document.getElementById('editFirstName').value = user.firstName;
             document.getElementById('editLastName').value = user.lastName;
+            document.getElementById('editPhone').value = user.phone || "";
             document.getElementById('editDob').value = user.dateOfBirth;
             document.getElementById('editOldImageFile').value = user.imageFile || "";
             
-            // รีเซ็ตไฟล์ใหม่
             document.getElementById('editImageUpload').value = '';
             editFileBuffer = null; editFileExtension = '';
             
-            // โหลดรูปเดิมมาโชว์
             const preview = document.getElementById('editImagePreview');
             const previewText = document.getElementById('editPreviewText');
             if(user.imageFile) {
@@ -306,11 +293,8 @@
             document.getElementById('editModal').classList.add('active');
         };
 
-        window.closeEditModal = function() {
-            document.getElementById('editModal').classList.remove('active');
-        };
+        window.closeEditModal = function() { document.getElementById('editModal').classList.remove('active'); };
 
-        // อ่านไฟล์รูประหว่างอยู่ในโหมดแก้ไข
         document.getElementById('editImageUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -329,28 +313,26 @@
             }
         });
 
-        // บันทึกการแก้ไข
         document.getElementById('updateBtn').addEventListener('click', async function() {
             const idToEdit = parseInt(document.getElementById('editId').value);
             const fName = document.getElementById('editFirstName').value.trim();
             const lName = document.getElementById('editLastName').value.trim();
+            const phone = document.getElementById('editPhone').value.trim();
             const dob = document.getElementById('editDob').value;
             let imageFileToSave = document.getElementById('editOldImageFile').value;
 
-            if(!fName || !lName || !dob) {
-                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน!', 'OK', 'WARNING'); return;
+            if(!fName || !lName || !phone || !dob) {
+                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน รวมถึงเบอร์มือถือด้วยครับ!', 'OK', 'WARNING'); return;
             }
             this.innerText = "กำลังอัปเดต..."; this.disabled = true;
 
             try {
-                // ถ้ามีการอัปโหลดรูปใหม่
                 if (editFileBuffer) {
                     await ensureImageFolder();
                     imageFileToSave = 'user_' + Date.now() + editFileExtension;
                     await Neutralino.filesystem.writeBinaryFile(IMG_FOLDER + '/' + imageFileToSave, editFileBuffer);
                 }
 
-                // ดึงข้อมูลทั้งหมดมาหาคนที่ต้องการแก้
                 let fileData = await Neutralino.filesystem.readFile(DATA_FILE);
                 let allUsers = JSON.parse(fileData);
                 
@@ -358,13 +340,14 @@
                 if(userIndex !== -1) {
                     allUsers[userIndex].firstName = fName;
                     allUsers[userIndex].lastName = lName;
+                    allUsers[userIndex].phone = phone;
                     allUsers[userIndex].dateOfBirth = dob;
                     allUsers[userIndex].imageFile = imageFileToSave;
                     
                     await Neutralino.filesystem.writeFile(DATA_FILE, JSON.stringify(allUsers, null, 2));
                     await Neutralino.os.showMessageBox('สำเร็จ', 'อัปเดตข้อมูลเรียบร้อยแล้ว!', 'OK', 'INFO');
                     closeEditModal();
-                    loadData(); // รีเฟรชหน้าจอ
+                    loadData();
                 }
             } catch(e) {
                 await Neutralino.os.showMessageBox('ข้อผิดพลาด', 'อัปเดตข้อมูลล้มเหลว: ' + e.message, 'OK', 'ERROR');
@@ -373,9 +356,6 @@
             }
         });
 
-        // ----------------------------------------------------
-        // โหลดข้อมูลมาแสดง
-        // ----------------------------------------------------
         async function loadData() {
             const grid = document.getElementById('dataGrid');
             if (currentPage === 1) grid.innerHTML = '<div class="empty-state">กำลังโหลดข้อมูล...</div>';
@@ -385,15 +365,12 @@
                     let fileData = await Neutralino.filesystem.readFile(DATA_FILE);
                     allUsersData = JSON.parse(fileData);
                     
-                    // ป้องกันปัญหา: อัปเดตข้อมูลเก่าที่ยังไม่มีรหัส (ID) ให้มีรหัสอัตโนมัติ
                     let needsSave = false;
                     allUsersData = allUsersData.map(u => {
                         if(!u.id) { u.id = Date.now() + Math.floor(Math.random() * 1000); needsSave = true; }
                         return u;
                     });
-                    // ถ้ามีการซ่อมข้อมูลเก่า ให้เซฟกลับไป 1 รอบ
                     if(needsSave) { await Neutralino.filesystem.writeFile(DATA_FILE, JSON.stringify(allUsersData, null, 2)); }
-                    
                     allUsersData.reverse(); 
                 }
                 if (allUsersData.length === 0) {
@@ -414,19 +391,21 @@
                     
                     const birthYear = new Date(user.dateOfBirth).getFullYear();
                     const age = new Date().getFullYear() - birthYear;
+                    const phoneDisplay = user.phone ? user.phone : '<span style="color:#cbd5e1;">ไม่ได้ระบุ</span>';
 
-                    let displayImageUrl = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23e2e8f0"/><circle cx="50" cy="35" r="15" fill="%2394a3b8"/><path d="M20 90 Q 50 40 80 90" fill="%2394a3b8"/></svg>';
+                    let imageHtml = `<div style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 15px; background: #f1f5f9; border: 4px solid #eff6ff; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 0.8rem; font-weight: bold;">ไม่มีรูปภาพ</div>`;
 
                     if (user.imageFile) {
                         try {
                             let imgBuffer = await Neutralino.filesystem.readBinaryFile(IMG_FOLDER + '/' + user.imageFile);
-                            displayImageUrl = URL.createObjectURL(new Blob([imgBuffer]));
+                            imageHtml = `<img src="${URL.createObjectURL(new Blob([imgBuffer]))}" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 15px; border: 4px solid #eff6ff; background: #e2e8f0;">`;
                         } catch(err) {}
                     }
 
                     card.innerHTML = `
-                        <img src="${displayImageUrl}" alt="Profile">
+                        ${imageHtml}
                         <h3>${user.firstName} ${user.lastName}</h3>
+                        <p><strong>เบอร์โทร:</strong> ${phoneDisplay}</p>
                         <p><strong>วันเกิด:</strong> ${user.dateOfBirth}</p>
                         <p><strong>อายุ:</strong> ${age} ปี</p>
                         <button class="btn-edit" onclick="openEditModal(${user.id})">✏️ แก้ไขข้อมูล</button>

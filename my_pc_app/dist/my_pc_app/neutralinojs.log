@@ -1,0 +1,4 @@
+ERROR 2026-09-30 12:55:53,156 NE_RS_UNBLDRE: Unable to load application resource file /resources/favicon.ico D:\a\neutralinojs\neutralinojs\api\debug\debug.cpp:17 hebkf@MSI
+ERROR 2026-09-30 12:55:53,937 NE_RS_UNBLDRE: Unable to load application resource file /resources/.well-known/appspecific/com.chrome.devtools.json D:\a\neutralinojs\neutralinojs\api\debug\debug.cpp:17 hebkf@MSI
+ERROR 2026-09-30 12:56:05,703 NE_RS_UNBLDRE: Unable to load application resource file /resources/favicon.ico D:\a\neutralinojs\neutralinojs\api\debug\debug.cpp:17 hebkf@MSI
+ERROR 2026-09-30 12:56:06,215 NE_RS_UNBLDRE: Unable to load application resource file /resources/.well-known/appspecific/com.chrome.devtools.json D:\a\neutralinojs\neutralinojs\api\debug\debug.cpp:17 hebkf@MSI
