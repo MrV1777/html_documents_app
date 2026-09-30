@@ -22,7 +22,6 @@
             height: 100vh;
             overflow: hidden;
         }
-        /* แถบเมนูด้านซ้าย */
         .sidebar {
             width: 260px;
             background-color: var(--surface);
@@ -48,23 +47,12 @@
             transition: all 0.2s;
             color: var(--text-light);
         }
-        .nav-item:hover {
-            background-color: #f8fafc;
-            color: var(--primary);
-        }
+        .nav-item:hover { background-color: #f8fafc; color: var(--primary); }
         .nav-item.active {
-            background-color: #eff6ff;
-            color: var(--primary);
-            border-right: 4px solid var(--primary);
-            font-weight: bold;
+            background-color: #eff6ff; color: var(--primary);
+            border-right: 4px solid var(--primary); font-weight: bold;
         }
-        
-        /* พื้นที่เนื้อหาหลัก */
-        .main-content {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-        }
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; position: relative; }
         .page { display: none; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
         
@@ -73,81 +61,65 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
-        /* กล่องเนื้อหา (Card) */
         .card {
             background: var(--surface);
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            max-width: 550px;
-            margin: 0 auto;
+            border-radius: 12px; padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            max-width: 550px; margin: 0 auto;
         }
         h1 { margin-bottom: 25px; font-size: 1.6rem; color: var(--text); }
 
-        /* ฟอร์มกรอกข้อมูล */
         .form-group { margin-bottom: 18px; }
         label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.95rem; }
         input[type="text"], input[type="date"], input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.2s;
-            font-size: 1rem;
+            width: 100%; padding: 12px; border: 1px solid var(--border);
+            border-radius: 8px; outline: none; transition: border-color 0.2s; font-size: 1rem;
         }
         input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
         
         .preview-box {
-            width: 140px; height: 140px;
-            border: 2px dashed #cbd5e1;
-            border-radius: 12px;
-            margin-top: 10px;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden; background: #f8fafc;
-            color: var(--text-light); font-size: 0.85rem; text-align: center;
+            width: 140px; height: 140px; border: 2px dashed #cbd5e1;
+            border-radius: 12px; margin-top: 10px; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; background: #f8fafc; color: var(--text-light); font-size: 0.85rem; text-align: center;
         }
         .preview-box img { width: 100%; height: 100%; object-fit: cover; }
         
         button {
-            width: 100%; padding: 14px;
-            background-color: var(--primary); color: white;
-            border: none; border-radius: 8px;
-            font-size: 1.05rem; font-weight: bold;
-            cursor: pointer; transition: background 0.2s;
-            margin-top: 10px;
+            width: 100%; padding: 14px; background-color: var(--primary); color: white;
+            border: none; border-radius: 8px; font-size: 1.05rem; font-weight: bold;
+            cursor: pointer; transition: background 0.2s; margin-top: 10px;
         }
         button:hover { background-color: var(--primary-hover); }
 
-        /* ตารางแสดงข้อมูลรูปภาพ (Grid) */
         .data-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 25px;
-            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px; max-width: 1100px; margin: 0 auto;
         }
         .user-card {
-            background: var(--surface);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            border: 1px solid var(--border);
-            text-align: center;
-            transition: transform 0.2s;
+            background: var(--surface); border-radius: 16px; padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04); border: 1px solid var(--border);
+            text-align: center; transition: transform 0.2s; position: relative;
         }
         .user-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .user-card img {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 4px solid #eff6ff;
-            background: #e2e8f0;
+            width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+            margin-bottom: 15px; border: 4px solid #eff6ff; background: #e2e8f0;
         }
         .user-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--text); }
         .user-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 5px; }
         
         .empty-state { text-align: center; padding: 60px; color: var(--text-light); width: 100%; font-size: 1.1rem; }
+
+        /* สำหรับหน้าต่าง Edit Modal */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6); z-index: 100;
+            justify-content: center; align-items: flex-start; padding-top: 5vh;
+            backdrop-filter: blur(2px);
+        }
+        .modal-overlay.active { display: flex; }
+        .btn-edit { background: #f59e0b; padding: 8px; font-size: 0.9rem; margin-top: 15px; }
+        .btn-edit:hover { background: #d97706; }
     </style>
 </head>
 <body>
@@ -158,40 +130,53 @@
     </div>
 
     <div class="main-content">
-        <!-- หน้าที่ 1: ฟอร์มกรอกข้อมูล -->
+        <!-- หน้าที่ 1: ฟอร์มกรอกข้อมูลใหม่ -->
         <div id="registerPage" class="page active">
             <div class="card">
                 <h1>สร้างประวัติใหม่</h1>
-                <div class="form-group">
-                    <label>ชื่อจริง:</label>
-                    <input type="text" id="firstName" placeholder="กรอกชื่อจริง">
-                </div>
-                <div class="form-group">
-                    <label>นามสกุล:</label>
-                    <input type="text" id="lastName" placeholder="กรอกนามสกุล">
-                </div>
-                <div class="form-group">
-                    <label>วัน/เดือน/ปีเกิด:</label>
-                    <input type="date" id="dob">
-                </div>
+                <div class="form-group"><label>ชื่อจริง:</label><input type="text" id="firstName" placeholder="กรอกชื่อจริง"></div>
+                <div class="form-group"><label>นามสกุล:</label><input type="text" id="lastName" placeholder="กรอกนามสกุล"></div>
+                <div class="form-group"><label>วัน/เดือน/ปีเกิด:</label><input type="date" id="dob"></div>
                 <div class="form-group">
                     <label>อัปโหลดรูปภาพประจำตัว:</label>
                     <input type="file" id="imageUpload" accept="image/*">
                     <div class="preview-box">
-                        <img id="imagePreview" style="display: none;">
-                        <span id="previewText">คลิกเลือกไฟล์รูป</span>
+                        <img id="imagePreview" style="display: none;"><span id="previewText">คลิกเลือกไฟล์รูป</span>
                     </div>
                 </div>
                 <button id="saveBtn">บันทึกประวัติ</button>
             </div>
         </div>
 
-        <!-- หน้าที่ 2: หน้าแสดงข้อมูลที่บันทึกแล้ว -->
+        <!-- หน้าที่ 2: ดูข้อมูล -->
         <div id="viewPage" class="page">
             <h1 style="max-width: 1100px; margin: 0 auto 25px;">รายชื่อที่บันทึกไว้ในระบบ</h1>
-            <div id="dataGrid" class="data-grid">
-                <!-- Javascript จะเอาข้อมูลมาวาดใส่ตรงนี้ -->
+            <div id="dataGrid" class="data-grid"></div>
+        </div>
+    </div>
+
+    <!-- หน้าต่างป๊อปอัปสำหรับแก้ไขข้อมูล (Modal) -->
+    <div id="editModal" class="modal-overlay">
+        <div class="card" style="width: 100%; max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1 style="margin: 0; font-size: 1.4rem;">✏️ แก้ไขประวัติ</h1>
+                <button onclick="closeEditModal()" style="width: auto; padding: 5px 15px; background: #ef4444; margin: 0;">ปิด X</button>
             </div>
+            
+            <input type="hidden" id="editId">
+            <input type="hidden" id="editOldImageFile">
+            
+            <div class="form-group"><label>ชื่อจริง:</label><input type="text" id="editFirstName"></div>
+            <div class="form-group"><label>นามสกุล:</label><input type="text" id="editLastName"></div>
+            <div class="form-group"><label>วัน/เดือน/ปีเกิด:</label><input type="date" id="editDob"></div>
+            <div class="form-group">
+                <label>เปลี่ยนรูปภาพ (ปล่อยว่างถ้าจะใช้รูปเดิม):</label>
+                <input type="file" id="editImageUpload" accept="image/*">
+                <div class="preview-box">
+                    <img id="editImagePreview" style="display: none;"><span id="editPreviewText">รูปเดิม</span>
+                </div>
+            </div>
+            <button id="updateBtn">บันทึกการแก้ไข</button>
         </div>
     </div>
 
@@ -199,160 +184,227 @@
     <script src="/js/neutralino.js"></script>
     <script>
         Neutralino.init();
+        Neutralino.events.on("windowClose", () => { Neutralino.app.exit(); });
         
-        const DATA_FILE = './user_data.json';
-        const IMG_FOLDER = './saved_images';
+        const DATA_FILE = NL_PATH + '/user_data.json';
+        const IMG_FOLDER = NL_PATH + '/saved_images';
         
-        // ตัวแปรสำหรับ Pagination (แบ่งหน้า)
         let allUsersData = [];
         let currentPage = 1;
-        const ITEMS_PER_PAGE = 12; // โหลดทีละ 12 คน
+        const ITEMS_PER_PAGE = 12;
         
-        // ตัวแปรเก็บไฟล์รูปภาพที่ผู้ใช้เลือก (เราจะเก็บเป็น ArrayBuffer เพื่อเตรียมเขียนเป็นไฟล์จริง)
-        let selectedFileBuffer = null;
-        let selectedFileExtension = '';
+        let selectedFileBuffer = null; let selectedFileExtension = '';
+        let editFileBuffer = null; let editFileExtension = '';
 
-        // --- ระบบสร้างโฟลเดอร์เก็บรูป (ทำครั้งแรก) ---
         async function ensureImageFolder() {
-            try {
-                await Neutralino.filesystem.createDirectory(IMG_FOLDER);
-            } catch(e) {
-                // ถ้าโฟลเดอร์มีอยู่แล้ว มันจะเข้า catch เราก็ปล่อยผ่านได้เลย
-            }
+            try { await Neutralino.filesystem.createDirectory(IMG_FOLDER); } catch(e) {}
         }
 
-        // --- ระบบสลับหน้า ---
         function switchPage(pageId, element) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             element.classList.add('active');
-
-            if(pageId === 'viewPage') {
-                currentPage = 1; // รีเซ็ตกลับไปหน้า 1
-                loadData();
-            }
+            if(pageId === 'viewPage') { currentPage = 1; loadData(); }
         }
 
-        // --- ระบบพรีวิวรูปตอนอัปโหลด ---
+        // อ่านไฟล์รูป (โหมดสร้างใหม่)
         document.getElementById('imageUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                // เก็บสกุลไฟล์ เช่น .jpg, .png
                 selectedFileExtension = file.name.substring(file.name.lastIndexOf('.'));
-                
-                // 1. อ่านเพื่อแสดงภาพพรีวิวบนหน้าจอ
                 const previewReader = new FileReader();
                 previewReader.onload = function(e) {
-                    const img = document.getElementById('imagePreview');
-                    img.src = e.target.result;
-                    img.style.display = 'block';
+                    document.getElementById('imagePreview').src = e.target.result;
+                    document.getElementById('imagePreview').style.display = 'block';
                     document.getElementById('previewText').style.display = 'none';
                 }
                 previewReader.readAsDataURL(file);
 
-                // 2. อ่านเพื่อเตรียมเอาไปสร้างเป็นไฟล์จริงๆ (ArrayBuffer)
                 const bufferReader = new FileReader();
-                bufferReader.onload = function(e) {
-                    selectedFileBuffer = e.target.result;
-                }
+                bufferReader.onload = function(e) { selectedFileBuffer = e.target.result; }
                 bufferReader.readAsArrayBuffer(file);
             }
         });
 
-        // --- ระบบบันทึกข้อมูลแบบแยกรูป (รองรับข้อมูลมหาศาล) ---
+        // บันทึกสร้างใหม่
         document.getElementById('saveBtn').addEventListener('click', async function() {
             const fName = document.getElementById('firstName').value.trim();
             const lName = document.getElementById('lastName').value.trim();
             const dob = document.getElementById('dob').value;
-
             if(!fName || !lName || !dob) {
-                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกชื่อ นามสกุล และวันเกิดให้ครบถ้วน!', 'OK', 'WARNING');
-                return;
+                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน!', 'OK', 'WARNING'); return;
             }
-
-            // แสดงสถานะว่ากำลังบันทึก (ป้องกันกดเบิ้ล)
-            const saveBtn = document.getElementById('saveBtn');
-            saveBtn.innerText = "กำลังบันทึก...";
-            saveBtn.disabled = true;
+            this.innerText = "กำลังบันทึก..."; this.disabled = true;
 
             try {
                 await ensureImageFolder();
-
                 let savedImageName = "";
-
-                // ถ้ามีการอัปโหลดรูป ให้บันทึกรูปเป็นไฟล์จริงๆ ลงในเครื่อง
                 if (selectedFileBuffer) {
                     savedImageName = 'user_' + Date.now() + selectedFileExtension;
                     await Neutralino.filesystem.writeBinaryFile(IMG_FOLDER + '/' + savedImageName, selectedFileBuffer);
                 }
 
-                const newUser = {
-                    id: Date.now(),
-                    firstName: fName,
-                    lastName: lName,
-                    dateOfBirth: dob,
-                    imageFile: savedImageName // เก็บแค่ "ชื่อไฟล์รูป" เท่านั้น!
-                };
-
+                const newUser = { id: Date.now(), firstName: fName, lastName: lName, dateOfBirth: dob, imageFile: savedImageName };
                 let allUsers = [];
                 try {
                     let fileData = await Neutralino.filesystem.readFile(DATA_FILE);
                     allUsers = JSON.parse(fileData);
                 } catch(e) {}
 
-                // เพิ่มข้อมูลคนใหม่ลงไป แล้วเซฟทับ JSON
                 allUsers.push(newUser);
                 await Neutralino.filesystem.writeFile(DATA_FILE, JSON.stringify(allUsers, null, 2));
-                
                 await Neutralino.os.showMessageBox('สำเร็จ', 'บันทึกข้อมูลเรียบร้อยแล้ว!', 'OK', 'INFO');
                 
-                // เคลียร์ฟอร์ม
-                document.getElementById('firstName').value = '';
-                document.getElementById('lastName').value = '';
-                document.getElementById('dob').value = '';
-                document.getElementById('imageUpload').value = '';
-                document.getElementById('imagePreview').style.display = 'none';
-                document.getElementById('previewText').style.display = 'block';
-                selectedFileBuffer = null;
-                selectedFileExtension = '';
-
+                document.getElementById('firstName').value = ''; document.getElementById('lastName').value = '';
+                document.getElementById('dob').value = ''; document.getElementById('imageUpload').value = '';
+                document.getElementById('imagePreview').style.display = 'none'; document.getElementById('previewText').style.display = 'block';
+                selectedFileBuffer = null; selectedFileExtension = '';
             } catch(e) {
                 await Neutralino.os.showMessageBox('เกิดข้อผิดพลาด', 'บันทึกข้อมูลล้มเหลว: ' + e.message, 'OK', 'ERROR');
             } finally {
-                saveBtn.innerText = "บันทึกประวัติ";
-                saveBtn.disabled = false;
+                this.innerText = "บันทึกประวัติ"; this.disabled = false;
             }
         });
 
-        // --- ระบบดึงข้อมูลมาแสดงผลแบบแบ่งหน้า (Pagination) ---
+        // ----------------------------------------------------
+        // ส่วนของระบบ "แก้ไขข้อมูล" (Edit Mode)
+        // ----------------------------------------------------
+
+        // เปิดหน้าต่าง Modal แก้ไข
+        window.openEditModal = async function(id) {
+            const user = allUsersData.find(u => u.id === id);
+            if(!user) return;
+
+            document.getElementById('editId').value = user.id;
+            document.getElementById('editFirstName').value = user.firstName;
+            document.getElementById('editLastName').value = user.lastName;
+            document.getElementById('editDob').value = user.dateOfBirth;
+            document.getElementById('editOldImageFile').value = user.imageFile || "";
+            
+            // รีเซ็ตไฟล์ใหม่
+            document.getElementById('editImageUpload').value = '';
+            editFileBuffer = null; editFileExtension = '';
+            
+            // โหลดรูปเดิมมาโชว์
+            const preview = document.getElementById('editImagePreview');
+            const previewText = document.getElementById('editPreviewText');
+            if(user.imageFile) {
+                try {
+                    let imgBuffer = await Neutralino.filesystem.readBinaryFile(IMG_FOLDER + '/' + user.imageFile);
+                    let blob = new Blob([imgBuffer]);
+                    preview.src = URL.createObjectURL(blob);
+                    preview.style.display = 'block';
+                    previewText.style.display = 'none';
+                } catch(err) {
+                    preview.style.display = 'none'; previewText.style.display = 'block'; previewText.innerText = "หาไฟล์รูปไม่เจอ";
+                }
+            } else {
+                preview.style.display = 'none'; previewText.style.display = 'block'; previewText.innerText = "ไม่เคยใส่รูป";
+            }
+
+            document.getElementById('editModal').classList.add('active');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('editModal').classList.remove('active');
+        };
+
+        // อ่านไฟล์รูประหว่างอยู่ในโหมดแก้ไข
+        document.getElementById('editImageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                editFileExtension = file.name.substring(file.name.lastIndexOf('.'));
+                const previewReader = new FileReader();
+                previewReader.onload = function(e) {
+                    document.getElementById('editImagePreview').src = e.target.result;
+                    document.getElementById('editImagePreview').style.display = 'block';
+                    document.getElementById('editPreviewText').style.display = 'none';
+                }
+                previewReader.readAsDataURL(file);
+
+                const bufferReader = new FileReader();
+                bufferReader.onload = function(e) { editFileBuffer = e.target.result; }
+                bufferReader.readAsArrayBuffer(file);
+            }
+        });
+
+        // บันทึกการแก้ไข
+        document.getElementById('updateBtn').addEventListener('click', async function() {
+            const idToEdit = parseInt(document.getElementById('editId').value);
+            const fName = document.getElementById('editFirstName').value.trim();
+            const lName = document.getElementById('editLastName').value.trim();
+            const dob = document.getElementById('editDob').value;
+            let imageFileToSave = document.getElementById('editOldImageFile').value;
+
+            if(!fName || !lName || !dob) {
+                await Neutralino.os.showMessageBox('แจ้งเตือน', 'กรุณากรอกข้อมูลให้ครบถ้วน!', 'OK', 'WARNING'); return;
+            }
+            this.innerText = "กำลังอัปเดต..."; this.disabled = true;
+
+            try {
+                // ถ้ามีการอัปโหลดรูปใหม่
+                if (editFileBuffer) {
+                    await ensureImageFolder();
+                    imageFileToSave = 'user_' + Date.now() + editFileExtension;
+                    await Neutralino.filesystem.writeBinaryFile(IMG_FOLDER + '/' + imageFileToSave, editFileBuffer);
+                }
+
+                // ดึงข้อมูลทั้งหมดมาหาคนที่ต้องการแก้
+                let fileData = await Neutralino.filesystem.readFile(DATA_FILE);
+                let allUsers = JSON.parse(fileData);
+                
+                const userIndex = allUsers.findIndex(u => u.id === idToEdit);
+                if(userIndex !== -1) {
+                    allUsers[userIndex].firstName = fName;
+                    allUsers[userIndex].lastName = lName;
+                    allUsers[userIndex].dateOfBirth = dob;
+                    allUsers[userIndex].imageFile = imageFileToSave;
+                    
+                    await Neutralino.filesystem.writeFile(DATA_FILE, JSON.stringify(allUsers, null, 2));
+                    await Neutralino.os.showMessageBox('สำเร็จ', 'อัปเดตข้อมูลเรียบร้อยแล้ว!', 'OK', 'INFO');
+                    closeEditModal();
+                    loadData(); // รีเฟรชหน้าจอ
+                }
+            } catch(e) {
+                await Neutralino.os.showMessageBox('ข้อผิดพลาด', 'อัปเดตข้อมูลล้มเหลว: ' + e.message, 'OK', 'ERROR');
+            } finally {
+                this.innerText = "บันทึกการแก้ไข"; this.disabled = false;
+            }
+        });
+
+        // ----------------------------------------------------
+        // โหลดข้อมูลมาแสดง
+        // ----------------------------------------------------
         async function loadData() {
             const grid = document.getElementById('dataGrid');
-            
-            if (currentPage === 1) {
-                grid.innerHTML = '<div class="empty-state">กำลังโหลดข้อมูล...</div>';
-            }
+            if (currentPage === 1) grid.innerHTML = '<div class="empty-state">กำลังโหลดข้อมูล...</div>';
 
             try {
                 if (currentPage === 1) {
                     let fileData = await Neutralino.filesystem.readFile(DATA_FILE);
                     allUsersData = JSON.parse(fileData);
-                    allUsersData.reverse(); // เอาคนล่าสุดขึ้นก่อน
+                    
+                    // ป้องกันปัญหา: อัปเดตข้อมูลเก่าที่ยังไม่มีรหัส (ID) ให้มีรหัสอัตโนมัติ
+                    let needsSave = false;
+                    allUsersData = allUsersData.map(u => {
+                        if(!u.id) { u.id = Date.now() + Math.floor(Math.random() * 1000); needsSave = true; }
+                        return u;
+                    });
+                    // ถ้ามีการซ่อมข้อมูลเก่า ให้เซฟกลับไป 1 รอบ
+                    if(needsSave) { await Neutralino.filesystem.writeFile(DATA_FILE, JSON.stringify(allUsersData, null, 2)); }
+                    
+                    allUsersData.reverse(); 
                 }
-
                 if (allUsersData.length === 0) {
-                    grid.innerHTML = '<div class="empty-state">ยังไม่มีข้อมูลในระบบ ลองไปเพิ่มข้อมูลดูก่อนนะครับ</div>';
-                    return;
+                    grid.innerHTML = '<div class="empty-state">ยังไม่มีข้อมูลในระบบ</div>'; return;
                 }
+                if (currentPage === 1) grid.innerHTML = '';
 
-                if (currentPage === 1) grid.innerHTML = ''; // ลบข้อความโหลด
-
-                // คำนวณว่าจะต้องดึงข้อมูลตำแหน่งไหนมาแสดง
                 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
                 const endIndex = startIndex + ITEMS_PER_PAGE;
                 const usersToShow = allUsersData.slice(startIndex, endIndex);
 
-                // ลบปุ่มโหลดเพิ่มอันเก่าออกก่อน
                 const oldLoadBtn = document.getElementById('loadMoreBtnContainer');
                 if(oldLoadBtn) oldLoadBtn.remove();
 
@@ -361,21 +413,15 @@
                     card.className = 'user-card';
                     
                     const birthYear = new Date(user.dateOfBirth).getFullYear();
-                    const currentYear = new Date().getFullYear();
-                    const age = currentYear - birthYear;
+                    const age = new Date().getFullYear() - birthYear;
 
-                    // รูปตั้งต้น
                     let displayImageUrl = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23e2e8f0"/><circle cx="50" cy="35" r="15" fill="%2394a3b8"/><path d="M20 90 Q 50 40 80 90" fill="%2394a3b8"/></svg>';
 
-                    // ถ้าเขามีไฟล์รูป ให้ไปโหลดไฟล์นั้นขึ้นมาแปลงเป็นภาพบนหน้าจอ
                     if (user.imageFile) {
                         try {
                             let imgBuffer = await Neutralino.filesystem.readBinaryFile(IMG_FOLDER + '/' + user.imageFile);
-                            let blob = new Blob([imgBuffer]);
-                            displayImageUrl = URL.createObjectURL(blob);
-                        } catch(err) {
-                            console.log('หาไฟล์รูปไม่เจอ: ' + user.imageFile);
-                        }
+                            displayImageUrl = URL.createObjectURL(new Blob([imgBuffer]));
+                        } catch(err) {}
                     }
 
                     card.innerHTML = `
@@ -383,37 +429,26 @@
                         <h3>${user.firstName} ${user.lastName}</h3>
                         <p><strong>วันเกิด:</strong> ${user.dateOfBirth}</p>
                         <p><strong>อายุ:</strong> ${age} ปี</p>
+                        <button class="btn-edit" onclick="openEditModal(${user.id})">✏️ แก้ไขข้อมูล</button>
                     `;
                     grid.appendChild(card);
                 }
 
-                // ถ้ายังมีคนเหลือ ให้วาดปุ่ม "โหลดเพิ่ม"
                 if (endIndex < allUsersData.length) {
                     const loadMoreContainer = document.createElement('div');
                     loadMoreContainer.id = 'loadMoreBtnContainer';
-                    loadMoreContainer.style.gridColumn = '1 / -1';
-                    loadMoreContainer.style.textAlign = 'center';
-                    loadMoreContainer.style.marginTop = '20px';
+                    loadMoreContainer.style.gridColumn = '1 / -1'; loadMoreContainer.style.textAlign = 'center';
                     
                     const loadBtn = document.createElement('button');
                     loadBtn.innerText = `โหลดเพิ่มอีก (แสดงแล้ว ${endIndex} / ${allUsersData.length})`;
-                    loadBtn.style.width = 'auto';
-                    loadBtn.style.padding = '10px 30px';
+                    loadBtn.style.width = 'auto'; loadBtn.style.padding = '10px 30px';
+                    loadBtn.onclick = function() { currentPage++; loadBtn.innerText = "กำลังโหลด..."; loadData(); };
                     
-                    loadBtn.onclick = function() {
-                        currentPage++;
-                        loadBtn.innerText = "กำลังโหลด...";
-                        loadData();
-                    };
-                    
-                    loadMoreContainer.appendChild(loadBtn);
-                    grid.appendChild(loadMoreContainer);
+                    loadMoreContainer.appendChild(loadBtn); grid.appendChild(loadMoreContainer);
                 }
 
             } catch(e) {
-                if (currentPage === 1) {
-                    grid.innerHTML = '<div class="empty-state">ยังไม่มีการบันทึกข้อมูล (หรือไฟล์ยังไม่ถูกสร้าง)</div>';
-                }
+                if (currentPage === 1) grid.innerHTML = '<div class="empty-state">ยังไม่มีการบันทึกข้อมูล</div>';
             }
         }
     </script>
